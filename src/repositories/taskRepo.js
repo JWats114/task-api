@@ -1,7 +1,10 @@
 import prisma from '../config/db.js';
 
-export async function findAll() {
-  return prisma.task.findMany();
+// Prisma ignores an undefined filter, so all tasks are returned when completed is not provided
+export async function findAll(completed) {
+  return prisma.task.findMany({
+    where: { completed },
+  });
 }
 
 // Create a new task
